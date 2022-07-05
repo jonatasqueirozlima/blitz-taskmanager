@@ -1,0 +1,25 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend/
+    container_name: tm-backend    
+    volumes:
+      - ./backend/:/usr/app/backend
+      - /usr/app/backend/node_modules
+    ports:
+      - "8080:8080"    
+    environment:
+      - NODE_ENV=development     
+
+  frontend:
+    build:
+      context: ./frontend/
+    container_name: tm-frontend    
+    volumes:
+      - ./frontend/:/usr/app/frontend
+      - /usr/app/frontend/node_modules
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
